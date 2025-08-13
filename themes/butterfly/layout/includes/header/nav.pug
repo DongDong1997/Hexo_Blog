@@ -1,0 +1,32 @@
+nav#nav
+  span#blog-info
+    a.nav-site-title(href=url_for('/'))
+      if theme.nav.logo
+        img.site-icon(src=url_for(theme.nav.logo) alt='Logo')
+      if theme.nav.display_title
+        span.site-name=config.title
+    if globalPageType === 'post' && theme.nav.display_post_title
+      a.nav-page-title(href=url_for('/'))
+        span.site-name=(page.title || config.title)
+
+  // 新增的导航菜单容器（居中布局关键）
+  #nav-menus-container
+    // 菜单主体部分
+    #menus
+      // 菜单项
+      if theme.menu
+        != partial('includes/header/menu_item', {}, {cache: true})
+
+  // 右侧功能区域（新增容器）
+  #nav-right-container
+    if theme.search.use
+      #search-button
+        span.site-page.social-icon.search
+          i.fas.fa-search.fa-fw
+          span= ' ' + _p('search.title')
+    if theme.menu
+      != partial('includes/header/menu_item', {}, {cache: true})
+
+      #toggle-menu
+        span.site-page
+          i.fas.fa-bars.fa-fw
